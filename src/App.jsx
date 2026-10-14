@@ -294,7 +294,7 @@ function Hero() {
     <section className="hero" aria-labelledby="hero-title">
       <div className="hero__copy">
         <h1 id="hero-title" className="display hero__title">
-          Statyba ir vidaus apdaila nuo pamato iki rakto
+          Vidaus apdaila, nuo iki
         </h1>
         <p className="lede hero__lede">
           Kaina ir terminai įrašomi į sutartį dar prieš pradedant darbus.
