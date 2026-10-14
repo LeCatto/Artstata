@@ -1,0 +1,259 @@
+/* avoid-ai-design-ignore: SD1 (smėlio foną ir espreso rudą pasirinko klientas) */
+
+/* ------------------------------------------------------------------ */
+/*  Dizaino žetonai                                                    */
+/*  Kryptis: statybinis brėžinys ant smėlio. Espreso – rašalas ir       */
+/*  rėmas, alyvuogė – vienintelis didelis spalvos laukas (skaičiuoklė), */
+/*  slyva – architekto žymeklis: veiksmas, žymos, fokusas.              */
+/* ------------------------------------------------------------------ */
+
+:root {
+  /* Spalvos (kliento paletė) */
+  --sand: #f2e9dc;          /* fonas – dominuoja */
+  --sand-2: #e8dccb;        /* įgilinti paviršiai */
+  --paper: #f8f3ea;         /* formos, brėžinio lapas */
+  --espresso: #2b2420;      /* rašalas, navigacija, poraštė (12,7:1 ant smėlio) */
+  --olive: #5b6b4d;         /* skaičiuoklės plokštė, laiko žymos (4,8:1) */
+  --olive-deep: #4e5d41;    /* tekstas alyvuogės tonu ant šviesaus fono */
+  --plum: #6b5b6e;          /* CTA ir žymos ant šviesaus (5,2:1 su smėliu) */
+  --plum-press: #5c4d5f;
+  --plum-light: #c9b8cb;    /* slyvos žymos ant tamsaus (8,1:1 ant espreso) */
+  --slate: #4a403a;         /* antrinis tekstas (8,4:1) */
+  --slate-2: #6e625a;       /* prislopintas tekstas (4,9:1) */
+  --danger: #9c2a1e;
+  --success: #5b6b4d;
+
+  --line: rgb(43 36 32 / 0.12);
+  --line-strong: rgb(43 36 32 / 0.22);
+  --line-dark: rgb(255 255 255 / 0.12);
+
+  /* Medžiaga – tik navigacijai, po kuria slenka turinys */
+  --glass-bg: rgb(43 36 32 / 0.8);
+  --glass-blur: blur(20px) saturate(140%);
+
+  /* Šešėliai – tik tam, kas iš tiesų pakyla */
+  --shadow-float: 0 1px 2px rgb(43 36 32 / 0.08), 0 12px 32px rgb(43 36 32 / 0.12);
+
+  /* Spinduliai pagal paskirtį, ne vienas visam kam */
+  --r-sheet: 4px;           /* plokštės, brėžiniai */
+  --r-control: 10px;        /* mygtukai, laukai */
+  --r-pill: 999px;
+
+  --gutter: clamp(1rem, 4vw, 2.5rem);
+  --section-y: clamp(4.5rem, 10vw, 8rem);
+  --header-h: 4rem;
+
+  /* Kreivės (Emil Kowalski) */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+
+  /* Šriftai: Archivo – inžinerinis groteskas su pločio ašimi */
+  --font: 'Archivo', 'Segoe UI', system-ui, sans-serif;
+
+  color-scheme: light;
+  font: 100%/1.55 var(--font);
+  font-variation-settings: 'wdth' 100;
+  font-optical-sizing: auto;
+  color: var(--espresso);
+  background: var(--sand);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + 1.5rem);
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--sand);
+  overflow-x: clip;
+  -webkit-tap-highlight-color: transparent;
+}
+
+h1,
+h2,
+h3,
+p,
+ul,
+ol,
+dl,
+dd,
+figure,
+fieldset {
+  margin: 0;
+}
+
+fieldset {
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+
+ul,
+ol {
+  padding: 0;
+  list-style: none;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  font-variation-settings: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+address {
+  font-style: normal;
+}
+
+:focus-visible {
+  outline: 2px solid var(--plum);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* Ant espreso slyva per tamsi (2,4:1) – naudojamas šviesus jos tonas;
+   ant alyvuogės – smėlis */
+.nav :focus-visible,
+.footer :focus-visible {
+  outline-color: var(--plum-light);
+}
+
+.slab :focus-visible {
+  outline-color: var(--sand);
+}
+
+::selection {
+  background: rgb(107 91 110 / 0.35);
+}
+
+/* Tipografija: tracking ir leading kinta su dydžiu */
+.display {
+  font-size: clamp(2.375rem, 6.2vw, 4.5rem);
+  font-variation-settings: 'wdth' 108;
+  font-weight: 760;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.title {
+  font-size: clamp(1.875rem, 4.2vw, 3rem);
+  font-variation-settings: 'wdth' 106;
+  font-weight: 740;
+  line-height: 1.06;
+  letter-spacing: -0.028em;
+  text-wrap: balance;
+}
+
+.lede {
+  font-size: clamp(1.0625rem, 1.5vw, 1.1875rem);
+  line-height: 1.55;
+  color: var(--slate);
+  text-wrap: pretty;
+}
+
+h3 {
+  font-size: 1.25rem;
+  font-variation-settings: 'wdth' 104;
+  font-weight: 680;
+  line-height: 1.2;
+  letter-spacing: -0.012em;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 100;
+  padding: 0.75rem 1rem;
+  border-radius: var(--r-control);
+  background: var(--espresso);
+  color: var(--paper);
+  font-weight: 600;
+  transform: translateY(-200%);
+  transition: transform 200ms var(--ease-out);
+}
+
+.skip-link:focus {
+  transform: none;
+}
+
+main:focus {
+  outline: none;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Prieinamumo nuostatos                                              */
+/* ------------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  :root {
+    --glass-bg: var(--espresso);
+    --glass-blur: none;
+  }
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --slate: #2b2420;
+    --slate-2: #3b322d;
+    --line: rgb(43 36 32 / 0.45);
+    --line-strong: rgb(43 36 32 / 0.7);
+    --glass-bg: rgb(43 36 32 / 0.98);
+  }
+}

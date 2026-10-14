@@ -1,0 +1,1596 @@
+/* ------------------------------------------------------------------ */
+/*  Maketas                                                            */
+/* ------------------------------------------------------------------ */
+
+.container {
+  width: 100%;
+  max-width: 76rem;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  padding-block: var(--section-y);
+  scroll-margin-top: var(--header-h);
+}
+
+.section--tint {
+  background: var(--bg-tint);
+}
+
+.section--dark {
+  background: var(--dark);
+  color: #f3f1ee;
+}
+
+.section--dark .eyebrow {
+  color: var(--accent-bright);
+}
+
+.section-head {
+  display: grid;
+  gap: 0.875rem;
+  max-width: 44rem;
+  margin-bottom: clamp(2.25rem, 5vw, 3.5rem);
+}
+
+.section-head--center {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.section-head .lede a {
+  color: var(--accent);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Mygtukai – grįžtamasis ryšys jau paspaudimo metu                    */
+/* ------------------------------------------------------------------ */
+
+.btn {
+  --btn-h: 2.875rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: var(--btn-h);
+  padding: 0 1.25rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: -0.005em;
+  text-decoration: none;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  transition:
+    transform var(--press),
+    background-color 150ms ease,
+    box-shadow 200ms ease;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn--primary {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 1px 2px rgb(194 65 12 / 0.3), 0 6px 18px rgb(194 65 12 / 0.22);
+}
+
+.btn--primary:hover {
+  background: var(--accent-hover);
+}
+
+.btn--ghost {
+  background: var(--surface);
+  border-color: var(--line-strong);
+  color: var(--ink);
+}
+
+.btn--ghost:hover {
+  background: #fbfaf8;
+  border-color: rgb(28 27 25 / 0.3);
+}
+
+.btn--sm {
+  --btn-h: 2.375rem;
+  padding: 0 1rem;
+  font-size: 0.9375rem;
+}
+
+.btn--lg {
+  --btn-h: 3.25rem;
+  padding: 0 1.5rem;
+  font-size: 1.0625rem;
+}
+
+.btn--block {
+  width: 100%;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Stiklo medžiaga                                                    */
+/* ------------------------------------------------------------------ */
+
+.glass {
+  background: rgb(255 255 255 / 0.68);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-md);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .glass {
+    background: var(--surface);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Logotipas                                                          */
+/* ------------------------------------------------------------------ */
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-family: var(--font-display);
+  font-weight: 750;
+  font-size: 1.1875rem;
+  letter-spacing: -0.02em;
+}
+
+.logo__mark {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.625rem;
+  background: var(--accent);
+  color: #fff;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Antraštė – permatomas sluoksnis, turinys slenka po juo              */
+/* ------------------------------------------------------------------ */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  padding-top: env(safe-area-inset-top);
+}
+
+/* Medžiaga – pseudo-elemente, kad backdrop-filter netaptų fixed vaikų konteineriu */
+.site-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+}
+
+/* Vietoje kietos linijos – švelnus krašto efektas, tik kai turinys po apačia */
+.site-header::after {
+  content: '';
+  position: absolute;
+  inset: 100% 0 auto;
+  height: 1.25rem;
+  background: linear-gradient(rgb(28 27 25 / 0.07), transparent);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 300ms ease;
+}
+
+.site-header[data-scrolled='true']::after {
+  opacity: 1;
+}
+
+.site-header__bar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  height: var(--header-h);
+}
+
+.site-header__brand {
+  text-decoration: none;
+  margin-right: auto;
+  border-radius: 0.75rem;
+}
+
+.site-header__cta {
+  display: none;
+}
+
+.site-nav {
+  display: none;
+}
+
+.site-nav ul {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.site-nav a {
+  position: relative;
+  display: block;
+  padding: 0.5rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.9375rem;
+  font-weight: 550;
+  color: var(--ink-2);
+  text-decoration: none;
+  transition: color 150ms ease, background-color 150ms ease;
+}
+
+.site-nav a:hover {
+  color: var(--ink);
+  background: rgb(28 27 25 / 0.05);
+}
+
+.site-nav a[aria-current='true'] {
+  color: var(--ink);
+  background: rgb(28 27 25 / 0.07);
+}
+
+.menu-button {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin-right: -0.5rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform var(--press), background-color 150ms ease;
+}
+
+.menu-button:active {
+  transform: scale(0.92);
+  background: rgb(28 27 25 / 0.06);
+}
+
+/* Mobilusis meniu: kyla iš mygtuko (transform-origin), materializuojasi */
+.mobile-menu {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: var(--gutter);
+  left: var(--gutter);
+  display: grid;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  border-radius: var(--radius-lg);
+  background: rgb(252 251 249 / 0.86);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  backdrop-filter: blur(28px) saturate(180%);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-lg);
+  transform-origin: top right;
+  opacity: 0;
+  transform: scale(0.92) translateY(-0.5rem);
+  filter: blur(6px);
+  visibility: hidden;
+  transition:
+    opacity 220ms ease,
+    transform var(--spring-dur) var(--spring),
+    filter 300ms ease,
+    visibility 0s linear 300ms;
+}
+
+.site-header[data-open='true'] .mobile-menu {
+  opacity: 1;
+  transform: none;
+  filter: none;
+  visibility: visible;
+  transition:
+    opacity 180ms ease,
+    transform var(--spring-dur) var(--spring),
+    filter 250ms ease,
+    visibility 0s;
+}
+
+.mobile-menu ul {
+  display: grid;
+}
+
+.mobile-menu ul a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 3rem;
+  padding: 0 0.875rem;
+  border-radius: var(--radius-sm);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  transition: background-color 120ms ease;
+}
+
+.mobile-menu ul a svg {
+  color: var(--ink-3);
+}
+
+.mobile-menu ul a:active,
+.mobile-menu ul a[aria-current='true'] {
+  background: rgb(28 27 25 / 0.06);
+}
+
+.mobile-menu__phone {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  font-weight: 600;
+  color: var(--ink-2);
+  text-decoration: none;
+}
+
+/* Modalinis veiksmas – užtamsiname foną */
+.mobile-scrim {
+  position: fixed;
+  inset: 0;
+  top: var(--header-h);
+  z-index: -1;
+  background: rgb(28 27 25 / 0.28);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 300ms ease;
+}
+
+.site-header[data-open='true'] .mobile-scrim {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (min-width: 60rem) {
+  .site-nav,
+  .site-header__cta {
+    display: block;
+  }
+
+  .site-header__cta {
+    display: inline-flex;
+  }
+
+  .menu-button,
+  .mobile-menu,
+  .mobile-scrim {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .mobile-menu {
+    background: var(--surface);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Vietos rezervavimo nuotraukos                                      */
+/* ------------------------------------------------------------------ */
+
+.photo {
+  width: 100%;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+}
+
+.photo--placeholder {
+  position: relative;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  color: rgb(28 27 25 / 0.55);
+  background-color: #d9d4cc;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgb(255 255 255 / 0.18) 0 12px,
+    transparent 12px 24px
+  );
+}
+
+.photo--warm {
+  background-color: #e7cdb4;
+  color: rgb(92 45 12 / 0.75);
+}
+
+.photo--stone {
+  background-color: #cfcac3;
+}
+
+.photo__tag {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  padding: 0.25rem 0.625rem;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.8);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+.photo__label {
+  padding: 0 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Hero                                                               */
+/* ------------------------------------------------------------------ */
+
+.hero {
+  padding-block: clamp(2.5rem, 7vw, 5.5rem) clamp(4rem, 8vw, 6.5rem);
+  overflow: clip;
+}
+
+.hero__grid {
+  display: grid;
+  gap: clamp(2.5rem, 6vw, 4.5rem);
+  align-items: center;
+}
+
+.hero__copy {
+  display: grid;
+  gap: 1.375rem;
+  justify-items: start;
+}
+
+.hero__lede {
+  max-width: 34rem;
+  font-size: clamp(1.0625rem, 1.8vw, 1.3125rem);
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  color: var(--ink-2);
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.hero__trust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  margin-top: 0.75rem;
+  font-size: 0.9375rem;
+  color: var(--ink-3);
+}
+
+.hero__trust strong {
+  color: var(--ink);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.hero__visual {
+  position: relative;
+}
+
+.hero__photo {
+  box-shadow: var(--shadow-lg);
+  max-height: 34rem;
+}
+
+.hero__badge {
+  position: absolute;
+  left: 1rem;
+  bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem 0.75rem 0.75rem;
+  border-radius: var(--radius);
+}
+
+.hero__badge > span:last-child {
+  display: grid;
+  font-size: 0.875rem;
+  line-height: 1.35;
+  color: var(--ink-2);
+}
+
+.hero__badge strong {
+  font-size: 0.9375rem;
+  font-weight: 650;
+  letter-spacing: 0.005em; /* vibrancija – šiek tiek daugiau tarpų ant stiklo */
+  color: var(--ink);
+}
+
+.hero__badge-icon {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.75rem;
+  background: var(--accent);
+  color: #fff;
+}
+
+@media (min-width: 56rem) {
+  .hero__grid {
+    grid-template-columns: 1.1fr 0.9fr;
+  }
+
+  .hero__photo {
+    max-height: none;
+  }
+
+  .hero__badge {
+    left: -1.5rem;
+    bottom: 2rem;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Kortelės ir ikonos                                                 */
+/* ------------------------------------------------------------------ */
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.icon-tile {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.875rem;
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.icon-tile--accent {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* Paslaugos */
+.services-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+}
+
+.service-card {
+  display: grid;
+  align-content: start;
+  gap: 0.75rem;
+  padding: 1.5rem;
+  transition:
+    transform var(--spring-dur) var(--spring),
+    box-shadow 300ms ease;
+}
+
+.service-card h3 {
+  margin-top: 0.5rem;
+}
+
+.service-card p {
+  color: var(--ink-2);
+  font-size: 0.9688rem;
+  line-height: 1.55;
+}
+
+@media (hover: hover) {
+  .service-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Apie mus                                                           */
+/* ------------------------------------------------------------------ */
+
+.about {
+  display: grid;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  align-items: center;
+}
+
+.about__copy .section-head {
+  margin-bottom: 1.5rem;
+}
+
+.about__text {
+  display: grid;
+  gap: 1rem;
+  max-width: 38rem;
+  font-size: 1.0625rem;
+  color: var(--ink-2);
+}
+
+.about__media .photo {
+  max-height: 32rem;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  margin-block: 2rem;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+
+.stat {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 0.125rem;
+  padding: 1.125rem 1.25rem;
+  background: var(--surface);
+}
+
+.stat dd {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.stat dt {
+  font-size: 0.875rem;
+  color: var(--ink-3);
+}
+
+.checklist {
+  display: grid;
+  gap: 0.625rem;
+}
+
+.checklist li {
+  display: flex;
+  gap: 0.625rem;
+  align-items: flex-start;
+  font-weight: 550;
+}
+
+.checklist svg {
+  flex: none;
+  margin-top: 0.15em;
+  color: var(--accent);
+}
+
+@media (min-width: 40rem) {
+  .stats {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 56rem) {
+  .about {
+    grid-template-columns: 0.85fr 1fr;
+  }
+
+  .about__media .photo {
+    max-height: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Kodėl mes                                                          */
+/* ------------------------------------------------------------------ */
+
+.reasons {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+}
+
+.reason {
+  display: grid;
+  align-content: start;
+  gap: 0.75rem;
+  padding: 1.75rem 1.5rem;
+  border-radius: var(--radius-lg);
+  background: var(--dark-2);
+  border: 1px solid rgb(255 255 255 / 0.07);
+}
+
+.reason h3 {
+  margin-top: 0.5rem;
+  color: #fff;
+}
+
+.reason p {
+  color: #bdb7af;
+  font-size: 0.9688rem;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Galerija                                                           */
+/* ------------------------------------------------------------------ */
+
+.filters {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.75rem;
+  overflow-x: auto;
+  padding: 0.25rem;
+  margin-inline: -0.25rem;
+  scrollbar-width: none;
+}
+
+.filters::-webkit-scrollbar {
+  display: none;
+}
+
+.chip {
+  flex: none;
+  min-height: 2.5rem;
+  padding: 0 1.125rem;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--ink-2);
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    transform var(--press),
+    background-color 200ms ease,
+    color 200ms ease,
+    border-color 200ms ease;
+}
+
+.chip:active {
+  transform: scale(0.95);
+}
+
+.chip[aria-pressed='true'] {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
+}
+
+.gallery-grid {
+  display: grid;
+  gap: 1.5rem 1.25rem;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 21rem), 1fr));
+}
+
+/* Atsirandantys elementai materializuojasi: mastelis + blur + skaidrumas kartu */
+.gallery-item {
+  animation: materialize var(--spring-dur) var(--spring) both;
+}
+
+@keyframes materialize {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+    filter: blur(8px);
+  }
+}
+
+.gallery-item figcaption {
+  display: grid;
+  gap: 0.125rem;
+  margin-top: 0.875rem;
+  padding-inline: 0.25rem;
+}
+
+.gallery-item figcaption strong {
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+.gallery-item figcaption span {
+  font-size: 0.875rem;
+  color: var(--ink-3);
+}
+
+/* Prieš / po slankiklis – sekimas 1:1 su pirštu */
+.compare {
+  --pos: 50%;
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  cursor: ew-resize;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  isolation: isolate;
+}
+
+.compare__img {
+  border-radius: 0;
+  pointer-events: none;
+}
+
+.compare__after {
+  position: absolute;
+  inset: 0;
+  clip-path: inset(0 0 0 var(--pos));
+  will-change: clip-path;
+}
+
+.compare__after .photo {
+  height: 100%;
+}
+
+.compare__chip {
+  position: absolute;
+  bottom: 0.75rem;
+  z-index: 2;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.8125rem;
+  font-weight: 650;
+  letter-spacing: 0.01em;
+  box-shadow: var(--shadow-sm);
+  pointer-events: none;
+}
+
+.compare__chip--before {
+  left: 0.75rem;
+}
+
+.compare__chip--after {
+  right: 0.75rem;
+}
+
+.compare__handle {
+  position: absolute;
+  inset-block: 0;
+  left: var(--pos);
+  z-index: 3;
+  width: 2.75rem;
+  margin-left: -1.375rem;
+  display: grid;
+  place-items: center;
+  outline: none;
+}
+
+.compare__handle::before {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  left: 50%;
+  width: 2px;
+  margin-left: -1px;
+  background: #fff;
+  box-shadow: 0 0 0 0.5px rgb(28 27 25 / 0.15), 0 0 12px rgb(28 27 25 / 0.2);
+}
+
+.compare__knob {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 999px;
+  color: var(--ink);
+  transition: transform 150ms ease-out;
+}
+
+/* Grįžtamasis ryšys jau prisilietimo metu */
+.compare[data-pressed] .compare__knob {
+  transform: scale(1.1);
+}
+
+.compare__handle:focus-visible .compare__knob {
+  outline: 2.5px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Atsiliepimai                                                       */
+/* ------------------------------------------------------------------ */
+
+.testimonials {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr));
+}
+
+.testimonial figure {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  height: 100%;
+  padding: 1.75rem 1.5rem 1.5rem;
+}
+
+.stars {
+  color: #e07a1f;
+  letter-spacing: 0.15em;
+  font-size: 1rem;
+}
+
+.testimonial blockquote {
+  flex: 1;
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  letter-spacing: -0.006em;
+}
+
+.testimonial figcaption {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+
+.testimonial figcaption > span:last-child {
+  display: grid;
+  font-size: 0.875rem;
+  color: var(--ink-3);
+}
+
+.testimonial figcaption strong {
+  font-size: 0.9375rem;
+  color: var(--ink);
+  font-weight: 650;
+}
+
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 999px;
+  background: var(--bg-tint);
+  font-weight: 700;
+  color: var(--ink-2);
+}
+
+/* ------------------------------------------------------------------ */
+/*  Procesas                                                           */
+/* ------------------------------------------------------------------ */
+
+.steps {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.step {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 1rem;
+  row-gap: 0.25rem;
+  padding: 1.25rem 0 1.25rem;
+}
+
+.step__num {
+  grid-row: span 2;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 999px;
+  background: var(--ink);
+  color: #fff;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Jungiamoji linija tarp žingsnių (mobiliai – vertikali) */
+.step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 1.375rem;
+  top: 4.25rem;
+  bottom: -0.5rem;
+  width: 2px;
+  margin-left: -1px;
+  background: var(--line-strong);
+}
+
+.step h3 {
+  align-self: center;
+}
+
+.step p {
+  color: var(--ink-2);
+  font-size: 0.9688rem;
+}
+
+@media (min-width: 60rem) {
+  .steps {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1.25rem;
+  }
+
+  .step {
+    grid-template-columns: 1fr;
+    row-gap: 0.625rem;
+    padding: 0;
+  }
+
+  .step__num {
+    grid-row: auto;
+    margin-bottom: 0.5rem;
+  }
+
+  .step:not(:last-child)::after {
+    left: 3.75rem;
+    right: -0.5rem;
+    top: 1.375rem;
+    bottom: auto;
+    width: auto;
+    height: 2px;
+    margin: -1px 0 0;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  DUK – akordeonas                                                   */
+/* ------------------------------------------------------------------ */
+
+.faq {
+  display: grid;
+  gap: 0;
+}
+
+.faq__list {
+  border-top: 1px solid var(--line-strong);
+}
+
+.faq__item {
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.faq__item h3 {
+  font-size: inherit;
+}
+
+.faq__item button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  min-height: 3.75rem;
+  padding: 1.125rem 0.25rem;
+  border: 0;
+  background: none;
+  text-align: left;
+  font-family: var(--font-display);
+  font-size: clamp(1.0625rem, 2vw, 1.1875rem);
+  font-weight: 650;
+  letter-spacing: -0.012em;
+  line-height: 1.3;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.faq__item button:active > span {
+  opacity: 0.6;
+}
+
+.faq__chevron {
+  flex: none;
+  color: var(--ink-3);
+  transition: transform var(--spring-dur) var(--spring);
+}
+
+.faq__item[data-open='true'] .faq__chevron {
+  transform: rotate(180deg);
+}
+
+.faq__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--spring-dur) var(--spring);
+}
+
+.faq__item[data-open='true'] .faq__panel {
+  grid-template-rows: 1fr;
+}
+
+.faq__inner {
+  overflow: hidden;
+}
+
+.faq__inner p {
+  max-width: 44rem;
+  padding: 0 2.5rem 1.375rem 0.25rem;
+  color: var(--ink-2);
+  font-size: 1.0313rem;
+  opacity: 0;
+  transform: translateY(-0.375rem);
+  transition:
+    opacity 200ms ease,
+    transform var(--spring-dur) var(--spring);
+}
+
+.faq__item[data-open='true'] .faq__inner p {
+  opacity: 1;
+  transform: none;
+}
+
+@media (min-width: 56rem) {
+  .faq {
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .faq .section-head {
+    position: sticky;
+    top: calc(var(--header-h) + 2rem);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Kontaktai                                                          */
+/* ------------------------------------------------------------------ */
+
+.contact {
+  display: grid;
+  gap: 2rem;
+  align-items: start;
+}
+
+.contact-form,
+.form-success {
+  display: grid;
+  gap: 1.25rem;
+  padding: clamp(1.25rem, 4vw, 2.25rem);
+  box-shadow: var(--shadow-md);
+}
+
+.contact-form h3,
+.form-success h3 {
+  font-size: 1.375rem;
+  letter-spacing: -0.02em;
+}
+
+.contact-form__note {
+  margin-top: -0.75rem;
+  font-size: 0.875rem;
+  color: var(--ink-3);
+}
+
+.form-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 36rem) {
+  .form-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .form-grid > .field:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+.field {
+  display: grid;
+  gap: 0.375rem;
+  align-content: start;
+}
+
+.field > label {
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  min-height: 3rem;
+  padding: 0.75rem 0.875rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  background: #fcfbfa;
+  font-size: 1rem; /* ≥16px – iOS nedidina puslapio */
+  line-height: 1.4;
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease,
+    background-color 150ms ease;
+}
+
+.field textarea {
+  resize: vertical;
+  min-height: 8rem;
+}
+
+.field select {
+  appearance: none;
+  padding-right: 2.5rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23736c64' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+}
+
+.field select:invalid,
+.field select:has(option[value='']:checked) {
+  color: var(--ink-3);
+}
+
+.field ::placeholder {
+  color: #a19a91;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: #fff;
+  box-shadow: 0 0 0 4px rgb(194 65 12 / 0.14);
+}
+
+.field[data-invalid] input,
+.field[data-invalid] select,
+.field[data-invalid] textarea {
+  border-color: var(--danger);
+}
+
+.field[data-invalid] input:focus,
+.field[data-invalid] select:focus,
+.field[data-invalid] textarea:focus {
+  box-shadow: 0 0 0 4px rgb(180 35 24 / 0.12);
+}
+
+.field__error,
+.form-error {
+  font-size: 0.875rem;
+  font-weight: 550;
+  color: var(--danger);
+  animation: materialize 300ms ease both;
+}
+
+.field__hint {
+  font-size: 0.875rem;
+  color: var(--ink-3);
+}
+
+.checkbox {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  font-size: 0.9375rem;
+  color: var(--ink-2);
+  cursor: pointer;
+}
+
+.checkbox input {
+  flex: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin: 0.125rem 0 0;
+  accent-color: var(--accent);
+}
+
+.checkbox a {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.form-success {
+  justify-items: start;
+  animation: materialize var(--spring-dur) var(--spring) both;
+}
+
+.form-success p {
+  color: var(--ink-2);
+}
+
+/* Kontaktinė informacija */
+.contact__info {
+  display: grid;
+  gap: 1.75rem;
+}
+
+.contact-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.contact-list li {
+  display: flex;
+  gap: 0.875rem;
+  align-items: center;
+}
+
+.contact-list .icon-tile {
+  width: 2.75rem;
+  height: 2.75rem;
+}
+
+.contact-list li > span:last-child {
+  display: grid;
+}
+
+.contact-list__label {
+  font-size: 0.8125rem;
+  color: var(--ink-3);
+}
+
+.contact-list a,
+.contact-list address {
+  font-weight: 600;
+  font-size: 1.0625rem;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+}
+
+.contact-list a:hover {
+  color: var(--accent);
+}
+
+.hours h3 {
+  margin-bottom: 0.625rem;
+  font-size: 1.0625rem;
+}
+
+.hours dl {
+  display: grid;
+  gap: 0.375rem;
+  max-width: 20rem;
+}
+
+.hours dl > div {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 0.375rem;
+  border-bottom: 1px dashed var(--line-strong);
+  font-variant-numeric: tabular-nums;
+}
+
+.hours dt {
+  color: var(--ink-3);
+}
+
+.hours dd {
+  font-weight: 600;
+}
+
+.socials {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.socials a {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  background: var(--surface);
+  color: var(--ink-2);
+  transition:
+    transform var(--press),
+    color 150ms ease,
+    border-color 150ms ease;
+}
+
+.socials a:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.socials a:active {
+  transform: scale(0.92);
+}
+
+.map-placeholder {
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 0.5rem;
+  aspect-ratio: 16 / 10;
+  border-radius: var(--radius-lg);
+  border: 1px dashed rgb(28 27 25 / 0.3);
+  background-color: #e4e0d9;
+  background-image:
+    linear-gradient(rgb(255 255 255 / 0.4) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 0.4) 1px, transparent 1px);
+  background-size: 28px 28px;
+  color: var(--ink-3);
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.map-placeholder svg {
+  color: var(--accent);
+}
+
+@media (min-width: 60rem) {
+  .contact {
+    grid-template-columns: 1.25fr 0.75fr;
+    gap: 3rem;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Poraštė                                                            */
+/* ------------------------------------------------------------------ */
+
+.site-footer {
+  padding-top: clamp(3rem, 7vw, 4.5rem);
+  padding-bottom: calc(1.5rem + env(safe-area-inset-bottom));
+  background: var(--dark);
+  color: #bdb7af;
+  font-size: 0.9375rem;
+}
+
+.site-footer .logo {
+  color: #fff;
+}
+
+.site-footer__grid {
+  display: grid;
+  gap: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+
+.site-footer__brand p {
+  max-width: 22rem;
+  margin-top: 1rem;
+}
+
+.site-footer__title {
+  margin-bottom: 0.875rem;
+  font-size: 0.8125rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 650;
+  color: #fff;
+}
+
+.site-footer ul {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.site-footer a {
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+
+.site-footer a:hover {
+  color: #fff;
+}
+
+.site-footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgb(255 255 255 / 0.1);
+  font-size: 0.875rem;
+}
+
+.site-footer__bottom a {
+  text-decoration: underline;
+}
+
+@media (min-width: 48rem) {
+  .site-footer__grid {
+    grid-template-columns: 1.5fr 1fr 1fr;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Pasirodymas slenkant (tik kai JS veikia)                           */
+/* ------------------------------------------------------------------ */
+
+.reveal-ready .reveal {
+  opacity: 0;
+  transform: translateY(1.25rem);
+  transition:
+    opacity 500ms ease,
+    transform var(--spring-dur) var(--spring);
+  transition-delay: calc(var(--i, 0) * 60ms);
+}
+
+.reveal-ready .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Sumažintas judesys – švelnūs perėjimai be poslinkių                 */
+/* ------------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-ready .reveal {
+    transform: none;
+    transition: opacity 250ms ease;
+    transition-delay: 0ms;
+  }
+
+  .gallery-item,
+  .form-success,
+  .field__error,
+  .form-error {
+    animation: fade 200ms ease both;
+  }
+
+  .mobile-menu,
+  .site-header[data-open='true'] .mobile-menu {
+    transform: none;
+    filter: none;
+  }
+
+  .faq__panel,
+  .faq__chevron,
+  .faq__inner p,
+  .service-card {
+    transition-duration: 0ms;
+  }
+
+  .faq__inner p {
+    transform: none;
+  }
+
+  .btn:active,
+  .chip:active {
+    transform: none;
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (prefers-contrast: more) {
+  .card,
+  .chip,
+  .reason {
+    border-width: 2px;
+  }
+
+  .glass {
+    background: #fff;
+    border-color: var(--ink);
+  }
+}

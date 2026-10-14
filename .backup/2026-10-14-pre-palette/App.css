@@ -1,0 +1,1269 @@
+/* ------------------------------------------------------------------ */
+/*  Mygtukai                                                           */
+/* ------------------------------------------------------------------ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 3rem;
+  padding: 0 1.375rem;
+  border: 1px solid transparent;
+  border-radius: var(--r-control);
+  font-size: 1rem;
+  font-variation-settings: 'wdth' 104;
+  font-weight: 640;
+  letter-spacing: -0.005em;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  user-select: none;
+  touch-action: manipulation;
+  transition:
+    transform 120ms var(--ease-out),
+    background-color 160ms ease,
+    border-color 160ms ease;
+}
+
+/* Atsakas paspaudimo metu, ne atleidus */
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn:disabled {
+  cursor: progress;
+  opacity: 0.65;
+  transform: none;
+}
+
+.btn--primary {
+  background: var(--brass);
+  color: var(--charcoal);
+}
+
+.btn--primary:active {
+  background: var(--brass-press);
+}
+
+.btn--quiet {
+  border-color: var(--line-strong);
+  background: transparent;
+  color: var(--charcoal);
+}
+
+.btn--sm {
+  min-height: 2.5rem;
+  padding: 0 1rem;
+  font-size: 0.9375rem;
+}
+
+.btn--block {
+  width: 100%;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .btn--primary:hover {
+    background: var(--brass-press);
+  }
+
+  .btn--quiet:hover {
+    border-color: var(--charcoal);
+    background: rgb(28 28 30 / 0.04);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Navigacija – permatoma medžiaga, po kuria slenka turinys            */
+/* ------------------------------------------------------------------ */
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  color: var(--ground);
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+  box-shadow: 0 0 0 rgb(28 28 30 / 0);
+  transition: box-shadow 200ms ease;
+}
+
+/* Krašto efektas tik kai turinys iš tiesų po juosta */
+.nav[data-scrolled] {
+  box-shadow: 0 8px 24px rgb(28 28 30 / 0.12);
+}
+
+.nav__inner {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  max-width: 77.5rem;
+  height: var(--header-h);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  margin-right: auto;
+  color: var(--ground);
+  text-decoration: none;
+}
+
+.brand__mark {
+  flex: none;
+}
+
+.brand__name {
+  font-size: 1.125rem;
+  font-variation-settings: 'wdth' 112;
+  font-weight: 760;
+  letter-spacing: -0.02em;
+}
+
+.brand__sub {
+  padding-left: 0.625rem;
+  border-left: 1px solid rgb(247 245 242 / 0.2);
+  font-size: 0.875rem;
+  color: rgb(247 245 242 / 0.62);
+}
+
+.nav__links ul {
+  display: flex;
+  gap: 0.125rem;
+}
+
+.nav__links a {
+  position: relative;
+  display: block;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  color: rgb(247 245 242 / 0.72);
+  font-size: 0.9375rem;
+  font-weight: 540;
+  text-decoration: none;
+  transition: color 160ms ease, background-color 160ms ease;
+}
+
+.nav__links a[aria-current] {
+  color: var(--ground);
+}
+
+.nav__links a::after {
+  content: '';
+  position: absolute;
+  left: 0.75rem;
+  right: 0.75rem;
+  bottom: 0.25rem;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--brass);
+  opacity: 0;
+  transform: scaleX(0.6);
+  transition: opacity 200ms var(--ease-out), transform 200ms var(--ease-out);
+}
+
+.nav__links a[aria-current]::after {
+  opacity: 1;
+  transform: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .nav__links a:hover {
+    color: var(--ground);
+    background: rgb(255 255 255 / 0.07);
+  }
+}
+
+.nav__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav__toggle {
+  display: none;
+  position: relative;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 0;
+  border-radius: var(--r-control);
+  background: transparent;
+  transition: transform 120ms var(--ease-out);
+}
+
+.nav__toggle:active {
+  transform: scale(0.96);
+}
+
+.nav__toggle-bar {
+  position: absolute;
+  left: 0.8125rem;
+  right: 0.8125rem;
+  height: 1.5px;
+  border-radius: 1px;
+  background: var(--ground);
+  transition: transform 200ms var(--ease-out);
+}
+
+.nav__toggle-bar:first-child {
+  transform: translateY(-3.5px);
+}
+
+.nav__toggle-bar:last-child {
+  transform: translateY(3.5px);
+}
+
+.nav__toggle[aria-expanded='true'] .nav__toggle-bar:first-child {
+  transform: rotate(45deg);
+}
+
+.nav__toggle[aria-expanded='true'] .nav__toggle-bar:last-child {
+  transform: rotate(-45deg);
+}
+
+/* Mobilusis meniu: išnyra iš mygtuko kampo ir grįžta tuo pačiu keliu */
+.nav__sheet {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  right: var(--gutter);
+  left: var(--gutter);
+  padding: 0.5rem;
+  border: 1px solid var(--line-dark);
+  border-radius: 14px;
+  background: var(--charcoal);
+  box-shadow: var(--shadow-float);
+  transform-origin: top right;
+  opacity: 0;
+  transform: translateY(-6px) scale(0.98);
+  visibility: hidden;
+  transition:
+    opacity 150ms var(--ease-out),
+    transform 150ms var(--ease-out),
+    visibility 0s linear 150ms;
+}
+
+.nav__sheet[data-open] {
+  opacity: 1;
+  transform: none;
+  visibility: visible;
+  transition:
+    opacity 200ms var(--ease-out),
+    transform 200ms var(--ease-out),
+    visibility 0s;
+}
+
+.nav__sheet a {
+  display: block;
+  padding: 0.875rem 1rem;
+  border-radius: 8px;
+  font-size: 1.0625rem;
+  font-weight: 560;
+  text-decoration: none;
+}
+
+.nav__sheet a:active {
+  background: rgb(255 255 255 / 0.08);
+}
+
+@media (max-width: 760px) {
+  .nav__links {
+    display: none;
+  }
+
+  .nav__toggle {
+    display: block;
+  }
+}
+
+@media (min-width: 761px) {
+  .nav__sheet {
+    display: none;
+  }
+}
+
+@media (max-width: 420px) {
+  .brand__sub {
+    display: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Hero                                                               */
+/* ------------------------------------------------------------------ */
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  align-items: center;
+  gap: clamp(2.5rem, 5vw, 5rem);
+  max-width: 77.5rem;
+  margin: 0 auto;
+  padding: clamp(3rem, 8vw, 6.5rem) var(--gutter) clamp(3.5rem, 8vw, 6rem);
+}
+
+.hero__lede {
+  max-width: 34rem;
+  margin-top: 1.5rem;
+}
+
+.hero__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.hero__facts {
+  display: flex;
+  gap: 2.5rem;
+  margin-top: clamp(2.5rem, 5vw, 3.5rem);
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line-strong);
+}
+
+.hero__facts div {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 0.25rem;
+}
+
+.hero__facts dd {
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-variation-settings: 'wdth' 112;
+  font-weight: 740;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.hero__facts dt {
+  font-size: 0.9375rem;
+  color: var(--slate-2);
+}
+
+/* Brėžinio lapas */
+.hero__sheet {
+  padding: clamp(1rem, 3vw, 1.75rem);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sheet);
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(rgb(28 28 30 / 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(28 28 30 / 0.045) 1px, transparent 1px);
+  background-size: 24px 24px;
+  background-position: -1px -1px;
+}
+
+.hero__sheet figcaption {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--line);
+  font-size: 0.8125rem;
+  font-variation-settings: 'wdth' 88;
+  color: var(--slate-2);
+}
+
+.drawing {
+  width: 100%;
+  height: auto;
+  color: var(--charcoal);
+}
+
+.drawing__lines path {
+  stroke: var(--charcoal);
+  stroke-width: 1.4;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.drawing__dims path,
+.drawing__level path[fill='none'] {
+  stroke: var(--slate-2);
+  stroke-width: 0.9;
+  vector-effect: non-scaling-stroke;
+}
+
+.drawing__fill {
+  color: var(--slate-2);
+  opacity: 0.55;
+}
+
+.drawing__labels text {
+  font-family: var(--font);
+  font-size: 11px;
+  font-variation-settings: 'wdth' 85;
+  font-weight: 520;
+  fill: var(--slate);
+}
+
+.drawing__level path:not([fill='none']) {
+  fill: var(--slate-2);
+}
+
+.drawing__level path.drawing__level-mark {
+  fill: var(--brass);
+}
+
+/* Vienintelis „įžanginis“ judesys puslapyje: tekstas ir brėžinys pasirodo įkėlus.
+   Retas (kartą per apsilankymą), todėl jam leidžiama būti lėtesniam. */
+@media (prefers-reduced-motion: no-preference) {
+  .hero__copy > * {
+    animation: rise 600ms var(--ease-out) both;
+  }
+
+  .hero__copy > :nth-child(2) {
+    animation-delay: 60ms;
+  }
+
+  .hero__copy > :nth-child(3) {
+    animation-delay: 120ms;
+  }
+
+  .hero__copy > :nth-child(4) {
+    animation-delay: 180ms;
+  }
+
+  .drawing__lines path,
+  .drawing__dims path {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: draw 1100ms var(--ease-in-out) 200ms forwards;
+  }
+
+  .drawing__lines--2 path {
+    animation-delay: 420ms;
+  }
+
+  .drawing__lines--3 path {
+    animation-delay: 640ms;
+  }
+
+  .drawing__dims path {
+    animation-duration: 700ms;
+    animation-delay: 1100ms;
+  }
+
+  .drawing__fill,
+  .drawing__labels {
+    animation: fade 500ms var(--ease-out) 1300ms both;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Sekcijos                                                           */
+/* ------------------------------------------------------------------ */
+
+.section {
+  max-width: 77.5rem;
+  margin: 0 auto;
+  padding: var(--section-y) var(--gutter);
+}
+
+.section__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  align-items: end;
+  gap: 1.25rem clamp(2rem, 5vw, 5rem);
+  margin-bottom: clamp(2.5rem, 5vw, 3.75rem);
+}
+
+.section__head .lede {
+  max-width: 32rem;
+}
+
+.section__head--dark .lede {
+  color: rgb(247 245 242 / 0.74);
+}
+
+@media (max-width: 820px) {
+  .section__head {
+    grid-template-columns: 1fr;
+  }
+}
+
+.field-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.002em;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Paslaugos – segmentuotos kortelės                                  */
+/* ------------------------------------------------------------------ */
+
+.svc {
+  display: flex;
+  gap: 0.75rem;
+  min-height: 25rem;
+}
+
+.svc__card {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 0;
+  min-width: 0;
+  border: 1px solid var(--line-strong);
+  background: transparent;
+  overflow: hidden;
+  transition:
+    background-color 220ms ease,
+    border-color 220ms ease,
+    color 220ms ease;
+}
+
+.svc__card[data-active] {
+  flex-grow: 2.6;
+  border-color: var(--charcoal);
+  background: var(--charcoal);
+  color: var(--ground);
+}
+
+.svc__trigger {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+  padding: 1.5rem;
+  border: 0;
+  background: none;
+  text-align: left;
+  transition: transform 120ms var(--ease-out);
+}
+
+.svc__card:not([data-active]) .svc__trigger {
+  flex: 1;
+}
+
+.svc__card:not([data-active]) .svc__trigger:active {
+  transform: scale(0.98);
+}
+
+.svc__card[data-active] .svc__trigger {
+  cursor: default;
+}
+
+.svc__heading {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.svc__title {
+  font-size: clamp(1.25rem, 1.8vw, 1.5rem);
+  font-variation-settings: 'wdth' 106;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.018em;
+}
+
+.svc__short {
+  font-size: 0.9375rem;
+  color: var(--slate-2);
+}
+
+.svc__card[data-active] .svc__short {
+  color: var(--brass);
+}
+
+.svc__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 1.5rem;
+  padding: 0 1.5rem 1.5rem;
+  color: rgb(247 245 242 / 0.8);
+}
+
+.svc__body > p:first-child {
+  max-width: 38rem;
+  font-size: 1.0625rem;
+  line-height: 1.55;
+}
+
+.svc__scope {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 1.5rem;
+}
+
+.svc__scope li {
+  padding: 0.625rem 0;
+  border-top: 1px solid var(--line-dark);
+  font-size: 0.9375rem;
+  color: var(--ground);
+}
+
+.svc__term {
+  margin-top: auto;
+  font-size: 0.9375rem;
+}
+
+.svc__term strong {
+  font-weight: 640;
+  color: var(--ground);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .svc__card:not([data-active]):hover {
+    border-color: var(--charcoal);
+    background: rgb(28 28 30 / 0.03);
+  }
+}
+
+@media (max-width: 900px) {
+  .svc {
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  .svc__card,
+  .svc__card[data-active] {
+    flex: none;
+  }
+
+  .svc__heading {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    column-gap: 1rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .svc__scope {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Skaičiuoklė – tamsi grafito plokštė                                */
+/* ------------------------------------------------------------------ */
+
+.slab {
+  padding: var(--section-y) var(--gutter);
+  background: var(--green);
+  color: var(--ground);
+}
+
+.slab__inner {
+  max-width: calc(77.5rem - 2 * var(--gutter));
+  margin: 0 auto;
+}
+
+.est {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  align-items: start;
+  gap: clamp(2rem, 5vw, 4.5rem);
+}
+
+.est__controls {
+  display: flex;
+  flex-direction: column;
+  gap: 2.25rem;
+}
+
+.est__controls .field-label {
+  color: rgb(247 245 242 / 0.74);
+}
+
+.est__scope {
+  margin-top: -1.25rem;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: rgb(247 245 242 / 0.74);
+}
+
+/* Segmentų valdiklis */
+.seg__track {
+  display: grid;
+  grid-template-columns: repeat(var(--count), minmax(0, 1fr));
+  gap: 2px;
+  margin-top: 0.625rem;
+  padding: 4px;
+  border: 1px solid var(--line-dark);
+  border-radius: 12px;
+  background: rgb(255 255 255 / 0.04);
+}
+
+.seg__option {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 2.75rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: 8px;
+  color: rgb(247 245 242 / 0.74);
+  font-size: 0.9375rem;
+  font-weight: 560;
+  line-height: 1.2;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+  transition:
+    color 160ms ease,
+    transform 120ms var(--ease-out);
+}
+
+.seg__option:active {
+  transform: scale(0.98);
+}
+
+.seg__option[data-checked] {
+  color: var(--charcoal);
+}
+
+.seg__option:has(input:focus-visible) {
+  outline: 2px solid var(--brass);
+  outline-offset: 2px;
+}
+
+.seg__thumb {
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  background: var(--ground);
+}
+
+.seg__text {
+  position: relative;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .seg__option:not([data-checked]):hover {
+    color: var(--ground);
+  }
+}
+
+/* Plotas: slankiklis su matmens linija */
+.area__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.area__value {
+  font-size: 1.75rem;
+  font-variation-settings: 'wdth' 108;
+  font-weight: 720;
+  letter-spacing: -0.02em;
+  color: var(--ground);
+}
+
+.area__dim {
+  position: relative;
+  height: 14px;
+  margin: 0.75rem 11px 0.25rem;
+}
+
+.area__dim::before,
+.area__dim-end span {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 14px;
+  background: var(--brass);
+}
+
+.area__dim-line {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--brass);
+  transform-origin: left center;
+}
+
+.area__dim-end {
+  position: absolute;
+  inset: 0;
+}
+
+.area__input {
+  -webkit-appearance: none;
+  appearance: none;
+  display: block;
+  width: 100%;
+  height: 2.75rem;
+  margin: 0;
+  background: transparent;
+  cursor: pointer;
+  touch-action: pan-y;
+}
+
+.area__input::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 2px;
+  background: rgb(255 255 255 / 0.14);
+}
+
+.area__input::-moz-range-track {
+  height: 4px;
+  border-radius: 2px;
+  background: rgb(255 255 255 / 0.14);
+}
+
+.area__input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  margin-top: -9px;
+  border: 3px solid var(--green);
+  border-radius: 50%;
+  background: var(--brass);
+  box-shadow: 0 0 0 1px var(--brass);
+  transition: transform 120ms var(--ease-out);
+}
+
+.area__input::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border: 3px solid var(--green);
+  border-radius: 50%;
+  background: var(--brass);
+  box-shadow: 0 0 0 1px var(--brass);
+  transition: transform 120ms var(--ease-out);
+}
+
+.area__input:active::-webkit-slider-thumb {
+  transform: scale(1.12);
+}
+
+.area__input:active::-moz-range-thumb {
+  transform: scale(1.12);
+}
+
+.area__input:focus-visible {
+  outline: none;
+}
+
+.area__input:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 0 0 1px var(--brass), 0 0 0 5px rgb(176 141 87 / 0.35);
+}
+
+.area__input:focus-visible::-moz-range-thumb {
+  box-shadow: 0 0 0 1px var(--brass), 0 0 0 5px rgb(176 141 87 / 0.35);
+}
+
+.area__scale {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8125rem;
+  color: rgb(247 245 242 / 0.6);
+}
+
+/* Rezultatas */
+.est__result {
+  position: sticky;
+  top: calc(var(--header-h) + 1.5rem);
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  border: 1px solid var(--line-dark);
+  border-radius: 6px;
+  background: var(--green-2);
+}
+
+.est__label {
+  font-size: 0.9375rem;
+  color: rgb(247 245 242 / 0.74);
+}
+
+.est__price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 0.5rem;
+  margin-top: 0.5rem;
+  font-size: clamp(1.75rem, 2.9vw, 2.375rem);
+  font-variation-settings: 'wdth' 96;
+  font-weight: 740;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.est__price > span {
+  white-space: nowrap;
+}
+
+.est__dash {
+  color: rgb(247 245 242 / 0.45);
+  font-weight: 400;
+}
+
+.est__meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 1.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line-dark);
+}
+
+.est__meta dt {
+  font-size: 0.8125rem;
+  color: rgb(247 245 242 / 0.62);
+}
+
+.est__meta dd {
+  margin-top: 0.25rem;
+  font-size: 1.25rem;
+  font-weight: 640;
+  letter-spacing: -0.01em;
+}
+
+.est__note {
+  margin: 1.5rem 0 1.25rem;
+  font-size: 0.8125rem;
+  color: rgb(247 245 242 / 0.62);
+}
+
+@media (max-width: 900px) {
+  .est {
+    grid-template-columns: 1fr;
+  }
+
+  .est__result {
+    position: static;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Darbų eiga – tikra seka, todėl numeruojama                          */
+/* ------------------------------------------------------------------ */
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 2rem 1.75rem;
+  counter-reset: none;
+}
+
+.step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--line-strong);
+}
+
+.step__index {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  background: var(--charcoal);
+  color: var(--ground);
+  font-size: 0.875rem;
+  font-weight: 700;
+  transform: translateY(-50%);
+}
+
+.step:last-child .step__index {
+  background: var(--brass);
+  color: var(--charcoal);
+}
+
+.step p {
+  color: var(--slate);
+  font-size: 0.9875rem;
+  line-height: 1.6;
+}
+
+.step .step__time {
+  margin-top: auto;
+  padding-top: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--green-2);
+}
+
+@media (max-width: 960px) {
+  .steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: 3rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .steps {
+    grid-template-columns: 1fr;
+    row-gap: 0;
+  }
+
+  .step {
+    padding: 0 0 2.25rem 2.75rem;
+    border-top: 0;
+    border-left: 1px solid var(--line-strong);
+    margin-left: 0.875rem;
+  }
+
+  .step:last-child {
+    border-left-color: transparent;
+    padding-bottom: 0;
+  }
+
+  .step__index {
+    left: 0;
+    transform: translateX(-50%);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Kontaktai                                                          */
+/* ------------------------------------------------------------------ */
+
+.contact {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  align-items: start;
+  gap: clamp(2.5rem, 6vw, 5.5rem);
+  border-top: 1px solid var(--line);
+}
+
+.contact__info .lede {
+  margin-top: 1.25rem;
+}
+
+.contact__list {
+  display: grid;
+  gap: 1.25rem;
+  margin-top: 2.5rem;
+}
+
+.contact__list > div {
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+
+.contact__list dt {
+  font-size: 0.8125rem;
+  color: var(--slate-2);
+}
+
+.contact__list dd {
+  margin-top: 0.25rem;
+  font-size: 1.0625rem;
+}
+
+.contact__list a {
+  text-decoration-color: var(--line-strong);
+}
+
+.contact__big {
+  font-size: 1.625rem;
+  font-variation-settings: 'wdth' 108;
+  font-weight: 720;
+  letter-spacing: -0.02em;
+  text-decoration: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .contact__list a:hover {
+    text-decoration-color: currentColor;
+  }
+}
+
+@media (max-width: 900px) {
+  .contact {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Forma */
+.form {
+  padding: clamp(1.5rem, 3.5vw, 2.5rem);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--paper);
+}
+
+.form h3 {
+  margin-bottom: 1.5rem;
+}
+
+.form__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem 1rem;
+}
+
+.form__wide {
+  grid-column: 1 / -1;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4375rem;
+}
+
+.field__optional {
+  font-weight: 400;
+  color: var(--slate-2);
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  min-height: 3rem;
+  padding: 0.75rem 0.875rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-control);
+  background: #fff;
+  font-size: 1rem; /* ≥16px – iOS nepriartina lauko */
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.field select {
+  appearance: none;
+  padding-right: 2.5rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%231c1c1e' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m1 1.5 5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.95rem center;
+}
+
+.field select:invalid {
+  color: var(--slate-2);
+}
+
+.field textarea {
+  min-height: 7rem;
+  resize: vertical;
+}
+
+.field ::placeholder {
+  color: #7c7a73;
+}
+
+.field input:focus-visible,
+.field select:focus-visible,
+.field textarea:focus-visible {
+  outline: none;
+  border-color: var(--charcoal);
+  box-shadow: 0 0 0 3px rgb(176 141 87 / 0.45);
+}
+
+.field[data-invalid] input,
+.field[data-invalid] select {
+  border-color: var(--danger);
+}
+
+.field__error {
+  font-size: 0.875rem;
+  color: var(--danger);
+}
+
+.form__alert {
+  margin-top: 1.25rem;
+  padding: 0.875rem 1rem;
+  border-radius: var(--r-control);
+  background: rgb(163 38 27 / 0.08);
+  color: var(--danger);
+  font-size: 0.9375rem;
+}
+
+.form__footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.5rem;
+  margin-top: 1.75rem;
+}
+
+.form__privacy {
+  flex: 1 1 14rem;
+  font-size: 0.8125rem;
+  color: var(--slate-2);
+}
+
+.form--done {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.form--done h3 {
+  margin: 0;
+}
+
+.form--done p {
+  color: var(--slate);
+}
+
+@media (max-width: 560px) {
+  .form__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form__footer .btn {
+    width: 100%;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Poraštė                                                            */
+/* ------------------------------------------------------------------ */
+
+.footer {
+  background: var(--charcoal);
+}
+
+.footer__inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.5rem 2rem;
+  max-width: 77.5rem;
+  margin: 0 auto;
+  padding: 2rem var(--gutter) calc(2rem + env(safe-area-inset-bottom));
+  font-size: 0.875rem;
+  color: rgb(247 245 242 / 0.62);
+}
+
+.footer strong {
+  color: var(--ground);
+  font-weight: 700;
+}
